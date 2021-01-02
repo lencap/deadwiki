@@ -10,8 +10,8 @@ RUN rustup target add x86_64-unknown-linux-musl
 # Create a dummy project and build the app's dependencies.
 # If the Cargo.toml or Cargo.lock files have not changed,
 # we can use the docker build cache and skip these (typically slow) steps.
-RUN USER=root cargo new url-shortener
-WORKDIR /usr/src/url-shortener
+RUN USER=root cargo new deadwiki
+WORKDIR /usr/src/deadwiki
 COPY Cargo.toml Cargo.lock ./
 RUN cargo build --release
 
@@ -21,6 +21,6 @@ RUN cargo install --target x86_64-unknown-linux-musl --path .
 
 # Copy the statically-linked binary into a scratch container.
 FROM scratch
-COPY --from=build /usr/local/cargo/bin/url-shortener .
+COPY --from=build /usr/local/cargo/bin/dead .
 USER 1000
-CMD ["./url-shortener"]
+CMD ["./dead"]
