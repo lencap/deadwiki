@@ -24,3 +24,7 @@ FROM scratch
 COPY --from=build /usr/local/cargo/bin/dead .
 USER 1000
 CMD ["./dead"]
+
+# Build and test
+# docker build -t deadwiki:0.1.28-dev .
+# docker run deadwiki:0.1.28-dev
